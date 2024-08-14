@@ -1,0 +1,12 @@
+{% extends "chat/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<h2>Start a New Conversation</h2>
+<form method="post">
+    {% csrf_token %}
+    <!-- {{ form.as_p }} -->
+      {{ form|crispy }}
+    <button type="submit" class="btn btn-primary">Create Conversation</button>
+</form>
+{% endblock %}

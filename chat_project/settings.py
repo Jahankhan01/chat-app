@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'channels',
     'chat',
+    'crispy_forms',
+    'crispy_bootstrap5',
 ]
 
 MIDDLEWARE = [
@@ -148,3 +150,8 @@ CHANNEL_LAYERS = {
 
 LOGIN_REDIRECT_URL = 'chat-page'
 LOGOUT_REDIRECT_URL = 'login-user'
+LOGIN_URL = 'login-user'
+
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"

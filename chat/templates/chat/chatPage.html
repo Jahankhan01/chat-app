@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <body>
+    {% load crispy_forms_tags %}
     <center><h1>Hello , Welcome to my chat site ! {{request.user}}</h1></center>
     <br>
     {% if request.user.is_authenticated  %}

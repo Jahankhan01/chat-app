@@ -1,0 +1,51 @@
+{% extends "chat/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<h2>{{ conversation.name }}</h2>
+<ul id="message-list">
+    {% for message in messages %}
+        <li>
+            {{ message.users.username }}: {{ message.message }}
+            {% if message.attachment %}
+                <a href="{{ message.attachment.url }}">Download attachment</a>
+            {% endif %}
+            {% if message.tagged_message %}
+                <blockquote>{{ message.tagged_message.message }}</blockquote>
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
+<form id="chat-message-form">
+    <input type="text" id="chat-message-input" placeholder="Type your message here...">
+    <button type="submit">Send</button>
+</form>
+<script>
+    const conversationId = "{{ conversation.id }}";
+    const chatSocket = new WebSocket(
+        'ws://' + window.location.host + '/ws/chat/' + conversationId + '/'
+    );
+
+    chatSocket.onmessage = function(e) {
+        const data = JSON.parse(e.data);
+        const messageList = document.getElementById('message-list');
+        const newMessage = document.createElement('li');
+        newMessage.innerText = data.user_id + ": " + data.message;
+        messageList.appendChild(newMessage);
+    };
+
+    chatSocket.onclose = function(e) {
+        console.error('Chat socket closed unexpectedly');
+    };
+
+    document.getElementById('chat-message-form').onsubmit = function(e) {
+        e.preventDefault();
+        const messageInput = document.getElementById('chat-message-input');
+        const message = messageInput.value;
+        chatSocket.send(JSON.stringify({
+            'message': message
+        }));
+        messageInput.value = '';
+    };
+</script>
+{% endblock %}

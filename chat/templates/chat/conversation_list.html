@@ -1,0 +1,28 @@
+{% extends "chat/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- Top Bar with Buttons -->
+    <div class="d-flex mb-3">
+        <a href="{% url 'conversation_create' %}" class="btn btn-primary me-2">Start a New Conversation</a>
+        <a href="{% url 'join_conversation' %}" class="btn btn-secondary">Join a Conversation</a>
+    </div>
+
+    <!-- Conversations List -->
+    <h2>My Conversations</h2>
+    <ul class="list-group mb-3">
+        {% for conversation in conversations %}
+            <li class="list-group-item">
+                <a href="{% url 'conversation_detail' conversation.pk %}">
+                    {{ conversation.name }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    {% if not conversations %}
+        <p>No conversations available.</p>
+    {% endif %}
+</div>
+{% endblock %}
