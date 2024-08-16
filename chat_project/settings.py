@@ -148,7 +148,7 @@ CHANNEL_LAYERS = {
     }
 }
 
-LOGIN_REDIRECT_URL = 'chat-page'
+LOGIN_REDIRECT_URL = 'conversation_list'
 LOGOUT_REDIRECT_URL = 'login-user'
 LOGIN_URL = 'login-user'
 
