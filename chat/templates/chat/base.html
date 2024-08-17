@@ -12,17 +12,24 @@
     {% load crispy_forms_tags %}
 </head>
 <body>
-    <div class="container">
+    <div class="container mt-4">
         <div class="d-flex justify-content-between align-items-center mb-3">
+            <!-- Left Side Navigation -->
             <div>
-                <!-- Other potential header content can go here -->
+                <a href="{% url 'conversation_list' %}" class="btn btn-outline-primary mr-2">My Conversations</a>
+                <a href="{% url 'conversation_create' %}" class="btn btn-outline-success mr-2">Start Conversation</a>
+                <a href="{% url 'join_conversation' %}" class="btn btn-outline-info mr-2">Join Conversation</a>
             </div>
 
-            {% if user.is_authenticated %}
-                <div>
+            <!-- Right Side User Info -->
+            <div class="d-flex align-items-center">
+                {% if user.is_authenticated %}
+                    <span class="mr-3">Welcome, {{ user.username }}!</span>
                     <a href="{% url 'logout-user' %}" class="btn btn-outline-danger">Logout</a>
-                </div>
-            {% endif %}
+                {% else %}
+                    <a href="{% url 'login-user' %}" class="btn btn-outline-primary">Login</a>
+                {% endif %}
+            </div>
         </div>
         
         {% block content %}

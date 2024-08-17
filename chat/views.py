@@ -83,6 +83,11 @@ class ConversationCreateView(LoginRequiredMixin, FormView):
     form_class = ConversationForm
     success_url = reverse_lazy('conversation_list')  # Change to your conversation list URL
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['logged_in_user'] = self.request.user  # Pass the logged-in user to the form
+        return kwargs
+
     def form_valid(self, form):
         # Extract conversation name and selected users from the form
         conversation_name = form.cleaned_data['name']

@@ -31,3 +31,9 @@ class ConversationForm(forms.Form):
         required=True,
         label="Select users to add to the conversation"
     )
+
+    def __init__(self, *args, **kwargs):
+        logged_in_user = kwargs.pop('logged_in_user', None)
+        super().__init__(*args, **kwargs)
+        if logged_in_user:
+            self.fields['users'].queryset = User.objects.exclude(id=logged_in_user.id)

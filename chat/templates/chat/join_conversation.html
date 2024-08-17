@@ -5,7 +5,6 @@
 <h2>Join a Conversation</h2>
 <form method="post">
     {% csrf_token %}
-    <!-- {{ form.as_p }} -->
     {{ form|crispy }}
     <button type="submit">Join</button>
 </form>
